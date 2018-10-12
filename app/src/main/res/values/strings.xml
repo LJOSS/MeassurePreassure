@@ -1,0 +1,19 @@
+<resources>
+    <string name="app_name">Measure pressure</string>
+    <string name="User">Пользователь</string>
+    <string name="History">История</string>
+    <string name="Photo">Сделать снимок</string>
+    <string name="Settings">Настройки</string>
+    <string name="Meassure">Сделать запись</string>
+    <string name="title_activity_history">History</string>
+    <string name="Age">Год рождения</string>
+    <string name="Sex">Пол</string>
+    <string name="SexWoman">Ж</string>
+    <string name="SexMan">М</string>
+    <string name="chSex">Пол</string>
+    <string name="Name">Введите имя</string>
+    <string name="Add">Добавить</string>
+    <string name="AddName">Введите Имя</string>
+    <string name="EnterAge">День Рождения</string>
+    <string name="EnterWeight">Введите Вес</string>
+</resources>
