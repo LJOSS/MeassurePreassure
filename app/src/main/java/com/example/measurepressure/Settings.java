@@ -18,13 +18,12 @@ public class Settings extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_settings);
+        rvMain = (RecyclerView) findViewById(R.id.rvMain);
 
         List<UserDB> users = MainActivity.MyDB.myDAO().getUsers();
 
-        rvMain =(RecyclerView) findViewById(R.id.rvMain);
         rvMain.setLayoutManager(new LinearLayoutManager(this));
-        Log.d(LOG_TAG,"WORK HERE");
-        MyRVAdapter rvMainAdapter = new MyRVAdapter(users);
+        RecyclerView.Adapter rvMainAdapter = new UserAdapter(users);
         rvMain.setAdapter(rvMainAdapter);
     }
 }

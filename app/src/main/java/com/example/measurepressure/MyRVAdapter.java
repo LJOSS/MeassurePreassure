@@ -9,26 +9,25 @@ import android.widget.TextView;
 
 import java.util.List;
 
-class MyRVAdapter extends RecyclerView.Adapter<MyRVAdapter.ViewHolder> {
+class UserAdapter extends RecyclerView.Adapter<UserAdapter.ViewHolder> {
 
     List<UserDB> users;
 
-    MyRVAdapter(List<UserDB> users) {
+    public UserAdapter(List<UserDB> users) {
         this.users = users;
     }
 
-    @NonNull
     @Override
-    public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int i) {
-        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.rv_layout, parent, false);
-        return new ViewHolder(v);
+    public UserAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.user_row, parent, false);
+        return new ViewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ViewHolder viewHolder, int i) {
-        viewHolder.tvAge.setText(users.get(i).getAge());
-        viewHolder.tvName.setText(users.get(i).getName());
-        viewHolder.tvWeight.setText(users.get(i).getWeight());
+    public void onBindViewHolder(UserAdapter.ViewHolder holder, int position) {
+        holder.firstName.setText(users.get(position).getName());
+        holder.Age.setText(users.get(position).getAge());
+        holder.Weight.setText(users.get(position).getWeight());
     }
 
     @Override
@@ -37,13 +36,15 @@ class MyRVAdapter extends RecyclerView.Adapter<MyRVAdapter.ViewHolder> {
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
-        TextView tvAge, tvName, tvWeight;
+        TextView firstName;
+        TextView Age;
+        TextView Weight;
 
-        public ViewHolder(@NonNull View itemView) {
+        public ViewHolder(View itemView) {
             super(itemView);
-            tvAge = itemView.findViewById(R.id.tvAge);
-            tvName = itemView.findViewById(R.id.tvName);
-            tvWeight = itemView.findViewById(R.id.tvWeight);
+            firstName = itemView.findViewById(R.id.first_name);
+            Age = itemView.findViewById(R.id.Age);
+            Weight = itemView.findViewById(R.id.Weight);
         }
     }
 }
