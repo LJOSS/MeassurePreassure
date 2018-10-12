@@ -13,7 +13,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     Button btnUser, btnHistory, btnSettings, btnMeassure;
 
     public static MyAppDB MyDB;
-    public static MyAppDBMeassure MeassureDB;
+    //public static MyAppDBMeassure MeassureDB;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,7 +30,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         btnUser.setOnClickListener(this);
 
         MyDB = Room.databaseBuilder(getApplicationContext(), MyAppDB.class, "UsersTable").allowMainThreadQueries().build();
-        MeassureDB = Room.databaseBuilder(getApplicationContext(),MyAppDBMeassure.class,"MeassureTable").allowMainThreadQueries().build();
+        //MeassureDB = Room.databaseBuilder(getApplicationContext(),MyAppDBMeassure.class,"MeassureTable").allowMainThreadQueries().build();
     }
 
     @Override
