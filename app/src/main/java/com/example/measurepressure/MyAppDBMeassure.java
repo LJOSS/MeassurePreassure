@@ -1,5 +1,5 @@
 package com.example.measurepressure;
-
+/*
 import android.arch.persistence.room.Database;
 import android.arch.persistence.room.RoomDatabase;
 
@@ -7,3 +7,4 @@ import android.arch.persistence.room.RoomDatabase;
 public abstract class MyAppDBMeassure extends RoomDatabase {
     public abstract MeassureDAO meassureDAO();
 }
+*/

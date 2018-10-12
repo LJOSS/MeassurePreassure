@@ -16,7 +16,7 @@ public class Meassure extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         List<UserDB> users = MainActivity.MyDB.myDAO().getUsers();
-        List<MeassureDB> meassures = MainActivity.MeassureDB.meassureDAO().getMeassures();
+        //List<MeassureDB> meassures = MainActivity.MeassureDB.meassureDAO().getMeassures();
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_meassure);
