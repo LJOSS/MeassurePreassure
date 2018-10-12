@@ -26,13 +26,5 @@ public class Meassure extends AppCompatActivity {
             startActivity(iUser);
         }
         spinner = (Spinner) findViewById(R.id.Spinner);
-
-        List<String> data;
-
-        for(UserDB usr : users){
-            data = usr.getName();
-        }
-
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,R.layout.support_simple_spinner_dropdown_item,data);
     }
 }
