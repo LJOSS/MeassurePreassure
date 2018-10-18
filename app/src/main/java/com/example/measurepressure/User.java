@@ -3,15 +3,20 @@ package com.example.measurepressure;
 import android.annotation.SuppressLint;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
+import android.content.ContentResolver;
+import android.content.ContentUris;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
+import android.provider.DocumentsContract;
 import android.provider.MediaStore;
 import android.support.v4.content.FileProvider;
 import android.support.v7.app.AppCompatActivity;
@@ -42,20 +47,19 @@ public class User extends AppCompatActivity implements View.OnClickListener {
 
     Button btnAdd;
 
-    private int mYear, mMonth, mDay;
-
-    //PARAMS OF USER
-    private int Weight;
-
-    private Uri imgAddress;
-
-    private String Name, Age;
-
     TextView tvAge;
 
     EditText etName, etAge, etWeight;
 
     ImageView ivPhoto;
+
+    private int mYear, mMonth, mDay;
+
+    //PARAMS OF USER
+    private int Weight;
+
+    private String Name, Age;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -76,7 +80,6 @@ public class User extends AppCompatActivity implements View.OnClickListener {
     }
 
 
-
     private void createDirectory() {
         directory = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES), "Meassure Preassure Pic");
     }
@@ -86,7 +89,6 @@ public class User extends AppCompatActivity implements View.OnClickListener {
         if (requestCode == REQUEST_CODE_PHOTO && resultCode == RESULT_OK) {
             if (intent != null && intent.getExtras() != null) {
                 Bitmap imageBitmap = (Bitmap) intent.getExtras().get("data");
-                imgAddress = intent.getData();
                 ivPhoto.setImageBitmap(imageBitmap);
             }
         }
