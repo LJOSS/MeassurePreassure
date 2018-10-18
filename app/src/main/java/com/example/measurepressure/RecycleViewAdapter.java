@@ -18,9 +18,9 @@ public class RecycleViewAdapter extends RecyclerView.Adapter<RecycleViewAdapter.
     List<UserDB> musers;
     Context mContext;
 
-    public RecycleViewAdapter(List<UserDB> musers, Context mContext) {
-        this.musers = musers;
-        this.mContext = mContext;
+    public RecycleViewAdapter(List<UserDB> users, Context context) {
+        this.musers = users;
+        this.mContext = context;
     }
 
     @NonNull
