@@ -9,20 +9,20 @@ import java.util.List;
 
 public class Settings extends AppCompatActivity {
 
-    private static final String LOG_TAG = "MYLogs";
-
-    RecyclerView rvMain;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_settings);
-        rvMain = (RecyclerView) findViewById(R.id.rvMain);
 
         List<UserDB> users = MainActivity.MyDB.myDAO().getUsers();
 
+        initRecycleViewAdapter(users);
+    }
+
+    private void initRecycleViewAdapter(List<UserDB> users) {
+        RecyclerView rvMain = (RecyclerView) findViewById(R.id.rvMain);
+        RecycleViewAdapter adapter = new RecycleViewAdapter(users,this);
+        rvMain.setAdapter(adapter);
         rvMain.setLayoutManager(new LinearLayoutManager(this));
-        RecyclerView.Adapter rvMainAdapter = new UserAdapter(users);
-        rvMain.setAdapter(rvMainAdapter);
     }
 }

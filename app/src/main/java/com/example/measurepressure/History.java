@@ -25,7 +25,7 @@ public class History extends AppCompatActivity {
             String age = usr.getAge();
             int weight = usr.getWeight();
 
-            info = info+ "\n\n"+"\nName: " + name + "\nAge: " + age+ "\nWeight: "+ weight;
+            info = info + "\n\n" + "\nName: " + name + "\nAge: " + age + "\nWeight: " + weight;
         }
         tvShow.setText(info);
     }
