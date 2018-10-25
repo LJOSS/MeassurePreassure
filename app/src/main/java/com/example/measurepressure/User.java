@@ -82,6 +82,9 @@ public class User extends AppCompatActivity implements View.OnClickListener {
 
     private void createDirectory() {
         directory = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES), "Meassure Preassure Pic");
+        Uri uri = Uri.fromFile(directory);
+        File auxFile = new File(uri.toString());
+        Toast.makeText(this,auxFile.toString(),Toast.LENGTH_LONG).show();
     }
 
     @Override
