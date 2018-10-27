@@ -35,7 +35,7 @@ public class RecycleViewAdapter extends RecyclerView.Adapter<RecycleViewAdapter.
     public void onBindViewHolder(@NonNull ViewHolder viewHolder, int i) {
         viewHolder.firstName.setText(musers.get(i).getName());
         viewHolder.Age.setText(musers.get(i).getAge());
-        viewHolder.Weight.setText(musers.get(i).getWeight());
+        viewHolder.Weight.setText(musers.get(i).getWeight()+"");
     }
 
     @Override

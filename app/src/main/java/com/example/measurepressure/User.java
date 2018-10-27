@@ -47,6 +47,8 @@ public class User extends AppCompatActivity implements View.OnClickListener {
 
     Button btnAdd;
 
+    Uri uri;
+
     TextView tvAge;
 
     EditText etName, etAge, etWeight;
@@ -92,6 +94,7 @@ public class User extends AppCompatActivity implements View.OnClickListener {
         if (requestCode == REQUEST_CODE_PHOTO && resultCode == RESULT_OK) {
             if (intent != null && intent.getExtras() != null) {
                 Bitmap imageBitmap = (Bitmap) intent.getExtras().get("data");
+                uri = intent.getData();
                 ivPhoto.setImageBitmap(imageBitmap);
             }
         }
