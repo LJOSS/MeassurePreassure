@@ -1,6 +1,7 @@
 package com.example.measurepressure;
 
 import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.content.ContentResolver;
@@ -39,15 +40,19 @@ import java.util.Date;
 import java.util.Locale;
 
 public class User extends AppCompatActivity implements View.OnClickListener {
-    final String LOG_TAG = "myLogs";
+    private static final String TAG = MainActivity.class.getSimpleName();
+
+    static final int REQUEST_CODE_PHOTO = 1;
+
+    Button btnAdd,btnAddGall;
+
+    Intent pickIMG;
+    Bitmap bitmap;
+    ImageView IMG;
+
+    Uri Uri;
 
     File directory;
-
-    final int REQUEST_CODE_PHOTO = 1;
-
-    Button btnAdd;
-
-    Uri uri;
 
     TextView tvAge;
 
@@ -62,12 +67,10 @@ public class User extends AppCompatActivity implements View.OnClickListener {
 
     private String Name, Age;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user);
-        createDirectory();
         ivPhoto = (ImageView) findViewById(R.id.ivPhoto);
 
         etWeight = (EditText) findViewById(R.id.etWeight);
@@ -81,7 +84,6 @@ public class User extends AppCompatActivity implements View.OnClickListener {
         btnAdd.setOnClickListener(this);
     }
 
-
     private void createDirectory() {
         directory = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES), "Meassure Preassure Pic");
         Uri uri = Uri.fromFile(directory);
@@ -94,13 +96,13 @@ public class User extends AppCompatActivity implements View.OnClickListener {
         if (requestCode == REQUEST_CODE_PHOTO && resultCode == RESULT_OK) {
             if (intent != null && intent.getExtras() != null) {
                 Bitmap imageBitmap = (Bitmap) intent.getExtras().get("data");
-                uri = intent.getData();
                 ivPhoto.setImageBitmap(imageBitmap);
             }
         }
     }
 
     public void onClickPhoto(View view) {
+        createDirectory();
         Intent pictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
         if (pictureIntent.resolveActivity(getPackageManager()) != null) {
             startActivityForResult(pictureIntent, REQUEST_CODE_PHOTO);
@@ -137,6 +139,7 @@ public class User extends AppCompatActivity implements View.OnClickListener {
                 user.setAge(Age);
                 user.setName(Name);
                 user.setWeight(Weight);
+
                 MainActivity.MyDB.myDAO().AddUser(user);
 
                 Toast.makeText(this, "Succsess", Toast.LENGTH_SHORT).show();

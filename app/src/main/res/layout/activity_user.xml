@@ -98,12 +98,14 @@
             android:padding="10dp"
             android:text="@string/Photo" />
 
-        <ImageView
+
+        <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/ivPhoto"
             android:layout_width="150dp"
             android:layout_height="150dp"
             android:layout_alignParentEnd="true"
             android:layout_toRightOf="@+id/btnPhoto"
-            android:visibility="visible" />
+            android:visibility="visible"
+            android:src="@mipmap/ic_launcher" />
     </RelativeLayout>
 </android.support.constraint.ConstraintLayout>

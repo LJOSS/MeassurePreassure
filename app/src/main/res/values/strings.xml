@@ -16,4 +16,6 @@
     <string name="AddName">Введите Имя</string>
     <string name="EnterAge">День Рождения</string>
     <string name="EnterWeight">Введите Вес</string>
+    <string name="btnAct">Снять измерение</string>
+    <string name="btnAddFromGall">Загрузить из галереи</string>
 </resources>
