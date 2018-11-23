@@ -23,8 +23,16 @@ public class UserDB {
     private int weight;
 
     private String age;
-    @Ignore
-    private URI avatarURI;
+
+    private String avatarURI;
+
+    public String getAvatarURI() {
+        return avatarURI;
+    }
+
+    public void setAvatarURI(String avatarURI) {
+        this.avatarURI = avatarURI;
+    }
 
     public String getName() {
         return name;
@@ -32,14 +40,6 @@ public class UserDB {
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    public URI getAvatarURI() {
-        return avatarURI;
-    }
-
-    public void setAvatarURI(URI avatarURI) {
-        this.avatarURI = avatarURI;
     }
 
     public void setAge(String age) {

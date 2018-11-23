@@ -98,7 +98,6 @@ public class Meassure extends AppCompatActivity implements View.OnClickListener 
     }
 
     private void prepareDirectory (String path){
-
         File dir = new File(path);
         if (!dir.exists()) {
             if (!dir.mkdirs()) {

@@ -42,17 +42,11 @@ import java.util.Locale;
 public class User extends AppCompatActivity implements View.OnClickListener {
     private static final String TAG = MainActivity.class.getSimpleName();
 
-    static final int REQUEST_CODE_PHOTO = 1;
+    static final int PHOTO_REQUEST_CODE = 1;
 
-    Button btnAdd,btnAddGall;
+    Button btnAdd;
 
-    Intent pickIMG;
-    Bitmap bitmap;
-    ImageView IMG;
-
-    Uri Uri;
-
-    File directory;
+    Uri UriPhoto;
 
     TextView tvAge;
 
@@ -84,28 +78,45 @@ public class User extends AppCompatActivity implements View.OnClickListener {
         btnAdd.setOnClickListener(this);
     }
 
-    private void createDirectory() {
-        directory = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES), "Meassure Preassure Pic");
-        Uri uri = Uri.fromFile(directory);
-        File auxFile = new File(uri.toString());
-        Toast.makeText(this,auxFile.toString(),Toast.LENGTH_LONG).show();
-    }
+    public void onClickPhoto(View view) {
 
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent intent) {
-        if (requestCode == REQUEST_CODE_PHOTO && resultCode == RESULT_OK) {
-            if (intent != null && intent.getExtras() != null) {
-                Bitmap imageBitmap = (Bitmap) intent.getExtras().get("data");
-                ivPhoto.setImageBitmap(imageBitmap);
+        try {
+            String IMGS_PATH = Environment.getExternalStorageDirectory().toString() + "/Measure pressure/Photos";
+            createDirectory(IMGS_PATH);
+
+            String img_path = IMGS_PATH + "photo" + System.currentTimeMillis() + ".jpg";
+
+            UriPhoto = Uri.fromFile(new File(img_path));
+
+            final Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+            takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, UriPhoto);
+
+            if (takePictureIntent.resolveActivity(getPackageManager()) != null) {
+                startActivityForResult(takePictureIntent, PHOTO_REQUEST_CODE);
             }
+        } catch (Exception e) {
+            Log.e(TAG, e.getMessage());
         }
     }
 
-    public void onClickPhoto(View view) {
-        createDirectory();
-        Intent pictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-        if (pictureIntent.resolveActivity(getPackageManager()) != null) {
-            startActivityForResult(pictureIntent, REQUEST_CODE_PHOTO);
+    public void createDirectory(String path) {
+        File dir = new File(path);
+        if (!dir.exists()) {
+            if (!dir.mkdirs()) {
+                Log.e(TAG, "ERROR: Creation of directory " + path + " failed, check does Android Manifest have permission to write to external storage.");
+            }
+        } else {
+            Log.i(TAG, "Created directory " + path);
+        }
+    }
+
+    @Override
+    public void onActivityResult ( int requestCode, int resultCode, Intent data){
+        //making photo
+        if (requestCode == PHOTO_REQUEST_CODE && resultCode == Activity.RESULT_OK) {
+            ivPhoto.setImageURI(UriPhoto);
+        } else {
+            Toast.makeText(this, "ERROR: Image was not obtained.", Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -139,10 +150,10 @@ public class User extends AppCompatActivity implements View.OnClickListener {
                 user.setAge(Age);
                 user.setName(Name);
                 user.setWeight(Weight);
-
+                user.setAvatarURI(UriPhoto.toString());
                 MainActivity.MyDB.myDAO().AddUser(user);
 
-                Toast.makeText(this, "Succsess", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, user.getAvatarURI() + " ", Toast.LENGTH_SHORT).show();
                 etWeight.setText("");
                 etAge.setText("");
                 etName.setText("");
