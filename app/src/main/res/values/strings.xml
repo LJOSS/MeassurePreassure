@@ -11,11 +11,12 @@
     <string name="SexWoman">Ж</string>
     <string name="SexMan">М</string>
     <string name="chSex">Пол</string>
-    <string name="Name">Введите имя</string>
+    <string name="Name">Имя</string>
     <string name="Add">Добавить</string>
     <string name="AddName">Введите Имя</string>
     <string name="EnterAge">День Рождения</string>
     <string name="EnterWeight">Введите Вес</string>
     <string name="btnAct">Снять измерение</string>
     <string name="btnAddFromGall">Загрузить из галереи</string>
+    <string name="Weight">Вес</string>
 </resources>

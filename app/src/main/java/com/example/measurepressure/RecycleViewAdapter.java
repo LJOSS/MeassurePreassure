@@ -1,6 +1,7 @@
 package com.example.measurepressure;
 
 import android.content.Context;
+import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -32,10 +33,20 @@ public class RecycleViewAdapter extends RecyclerView.Adapter<RecycleViewAdapter.
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ViewHolder viewHolder, int i) {
+    public void onBindViewHolder(@NonNull ViewHolder viewHolder, final int i) {
         viewHolder.firstName.setText(musers.get(i).getName());
         viewHolder.Age.setText(musers.get(i).getAge());
         viewHolder.Weight.setText(musers.get(i).getWeight()+"");
+        viewHolder.circleImageView.setImageURI(Uri.parse(musers.get(i).getAvatarURI()));
+
+        viewHolder.parentLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                UserDB userDB = new UserDB();
+                userDB.setId(i);
+                MainActivity.MyDB.myDAO().DeleteUser(userDB);
+            }
+        });
     }
 
     @Override
