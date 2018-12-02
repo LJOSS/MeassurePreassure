@@ -10,10 +10,10 @@ import android.widget.Button;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
-    Button btnUser, btnHistory, btnSettings, btnMeassure;
+    Button btnUser, btnHistory, btnSettings, btnMeassure, btnShowUsersAndMeasures;
 
-    public static MyAppDB MyDB;
-    //public static MyAppDBMeassure MeassureDB;
+    public static MyAppDB myAppDB;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,9 +28,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         btnSettings.setOnClickListener(this);
         btnUser = (Button) findViewById(R.id.btnUser);
         btnUser.setOnClickListener(this);
+        btnShowUsersAndMeasures = (Button) findViewById(R.id.btnShowUsersAndMeasures);
+        btnShowUsersAndMeasures.setOnClickListener(this);
 
-        MyDB = Room.databaseBuilder(getApplicationContext(), MyAppDB.class, "UsersTable").allowMainThreadQueries().build();
-        //MeassureDB = Room.databaseBuilder(getApplicationContext(),MyAppDBMeassure.class,"MeassureTable").allowMainThreadQueries().build();
+        myAppDB = myAppDB.getDatabase(getApplicationContext());
     }
 
     @Override
@@ -51,6 +52,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             case R.id.btnSettings:
                 Intent iSettings = new Intent(this, Settings.class);
                 startActivity(iSettings);
+                break;
+            case R.id.btnShowUsersAndMeasures:
+                Intent iShowUsersAndMeasures = new Intent(this, ShowUsersAndMeasures.class);
+                startActivity(iShowUsersAndMeasures);
                 break;
         }
     }

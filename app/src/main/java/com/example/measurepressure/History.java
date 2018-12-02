@@ -16,7 +16,7 @@ public class History extends AppCompatActivity {
         setContentView(R.layout.activity_history);
         tvShow = (TextView) findViewById(R.id.tvShow);
 
-        List<UserDB> users = MainActivity.MyDB.myDAO().getUsers();
+        List<UserDB> users = MainActivity.myAppDB.userDAO().getUsers();
 
         String info = "";
 

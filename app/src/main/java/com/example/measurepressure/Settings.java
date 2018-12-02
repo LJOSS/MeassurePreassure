@@ -14,7 +14,7 @@ public class Settings extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_settings);
 
-        List<UserDB> users = MainActivity.MyDB.myDAO().getUsers();
+        List<UserDB> users = MainActivity.myAppDB.userDAO().getUsers();
 
         initRecycleViewAdapter(users);
     }

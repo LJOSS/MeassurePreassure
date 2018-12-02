@@ -43,6 +43,11 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/User" />
+        <Button
+            android:id="@+id/btnShowUsersAndMeasures"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/btnShowUsersAndMeasures" />
     </LinearLayout>
 
 </android.support.constraint.ConstraintLayout>

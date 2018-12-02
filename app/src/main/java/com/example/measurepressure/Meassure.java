@@ -44,8 +44,6 @@ public class Meassure extends AppCompatActivity implements View.OnClickListener 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_meassure);
-        List<UserDB> users = MainActivity.MyDB.myDAO().getUsers();
-        //List<MeassureDB> meassures = MainActivity.MeassureDB.meassureDAO().getMeassures();
 
         tvRes = (TextView) findViewById(R.id.textResult);
 

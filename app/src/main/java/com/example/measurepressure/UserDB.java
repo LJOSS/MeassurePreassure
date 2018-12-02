@@ -1,5 +1,6 @@
 package com.example.measurepressure;
 
+import android.arch.persistence.room.ColumnInfo;
 import android.arch.persistence.room.Database;
 import android.arch.persistence.room.Entity;
 import android.arch.persistence.room.Ignore;
@@ -12,18 +13,19 @@ import java.util.Date;
 /**
  * Created by Иван on 08.09.2018.
  */
-@Entity(tableName = "UserDB")
+@Entity(tableName = "usertable")
 public class UserDB {
 
     @PrimaryKey(autoGenerate = true)
+    @ColumnInfo(name = "id")
     private int id;
-
+    @ColumnInfo(name = "name")
     private String name;
-
+    @ColumnInfo(name = "weight")
     private int weight;
-
+    @ColumnInfo(name = "age")
     private String age;
-
+    @ColumnInfo(name = "avatarURI")
     private String avatarURI;
 
     public int getId() {

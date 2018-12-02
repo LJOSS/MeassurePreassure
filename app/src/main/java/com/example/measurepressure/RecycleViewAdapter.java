@@ -36,7 +36,7 @@ public class RecycleViewAdapter extends RecyclerView.Adapter<RecycleViewAdapter.
     public void onBindViewHolder(@NonNull ViewHolder viewHolder, final int i) {
         viewHolder.firstName.setText(musers.get(i).getName());
         viewHolder.Age.setText(musers.get(i).getAge());
-        viewHolder.Weight.setText(musers.get(i).getWeight()+"");
+        viewHolder.Weight.setText(musers.get(i).getWeight() + "");
         viewHolder.circleImageView.setImageURI(Uri.parse(musers.get(i).getAvatarURI()));
 
         viewHolder.parentLayout.setOnClickListener(new View.OnClickListener() {
@@ -44,7 +44,7 @@ public class RecycleViewAdapter extends RecyclerView.Adapter<RecycleViewAdapter.
             public void onClick(View view) {
                 UserDB userDB = new UserDB();
                 userDB.setId(i);
-                MainActivity.MyDB.myDAO().DeleteUser(userDB);
+                MainActivity.myAppDB.userDAO().DeleteUser(userDB);
             }
         });
     }

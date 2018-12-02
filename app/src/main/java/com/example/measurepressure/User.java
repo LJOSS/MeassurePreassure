@@ -151,7 +151,7 @@ public class User extends AppCompatActivity implements View.OnClickListener {
                 user.setName(Name);
                 user.setWeight(Weight);
                 user.setAvatarURI(UriPhoto.toString());
-                MainActivity.MyDB.myDAO().AddUser(user);
+                MainActivity.myAppDB.userDAO().AddUser(user);
 
                 Toast.makeText(this, user.getAvatarURI() + " ", Toast.LENGTH_SHORT).show();
                 etWeight.setText("");

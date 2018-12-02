@@ -19,4 +19,8 @@
     <string name="btnAct">Снять измерение</string>
     <string name="btnAddFromGall">Загрузить из галереи</string>
     <string name="Weight">Вес</string>
+    <string name="btnShowUsersAndMeasures">SHow Users And Measures</string>
+    <string name="Id">Id</string>
+    <string name="EnterID">Enter User Id</string>
+    <string name="show">Show</string>
 </resources>

@@ -9,14 +9,12 @@ import java.util.List;
 
 @Dao
 public interface UserDAO {
-
     @Insert
     void AddUser(UserDB userDB);
 
     @Delete
     void DeleteUser(UserDB userDB);
 
-    @Query("SELECT * FROM UserDB")
+    @Query("SELECT * FROM usertable")
     List<UserDB> getUsers();
-
 }

@@ -57,7 +57,7 @@
                 android:id="@+id/tvSex"
                 android:gravity="left"
                 android:padding="10dp"
-                android:text="@string/Sex" />
+                android:text="@string/Weight" />
 
             <EditText
                 android:id="@+id/etWeight"

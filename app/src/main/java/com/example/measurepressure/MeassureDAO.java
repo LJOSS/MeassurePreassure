@@ -6,13 +6,21 @@ import android.arch.persistence.room.Insert;
 import android.arch.persistence.room.Query;
 
 import java.util.List;
-
 @Dao
 public interface MeassureDAO {
-
     @Insert
-    void AddMeassure(MeassureDB meassureDB);
+    void AddMeasure(MeassureDB measureDB);
 
-    @Query("SELECT * FROM MeassureDB")
-    List<MeassureDB> getMeassures();
+    @Delete
+    void DeleteMeasure(MeassureDB measureDB);
+
+    @Query("SELECT usertable.name,usertable.weight," +
+            "measuretable.Upper,measuretable.Lower,measuretable.Pulse " +
+            "FROM measuretable" +
+            " JOIN usertable ON usertable.id = measuretable.userid " +
+            " WHERE usertable.id = :id_in")
+    List<UsersWithMeasures> getAllMeasuresWithUsers(int id_in);
+
+    @Query("SELECT * FROM measuretable")
+    List<MeassureDB> getMeasures();
 }
