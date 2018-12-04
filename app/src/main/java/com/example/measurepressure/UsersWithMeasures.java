@@ -5,20 +5,34 @@ import android.arch.persistence.room.ColumnInfo;
 public class UsersWithMeasures {
 
     @ColumnInfo(name = "name")
-    private String name;
+    private String Name;
     @ColumnInfo(name = "weight")
     private int Weight;
     @ColumnInfo(name = "upper")
     private int Upper;
     @ColumnInfo(name = "lower")
     private int Lower;
+    @ColumnInfo(name = "age")
+    private String age;
+    @ColumnInfo(name = "pulse")
+    private int Pulse;
+    @ColumnInfo(name = "avatarURI")
+    private String avatarURI;
+
+    public String getAvatarURI() {
+        return avatarURI;
+    }
+
+    public void setAvatarURI(String avatarURI) {
+        this.avatarURI = avatarURI;
+    }
 
     public String getName() {
-        return name;
+        return Name;
     }
 
     public void setName(String name) {
-        this.name = name;
+        this.Name = name;
     }
 
     public int getWeight() {
@@ -53,6 +67,11 @@ public class UsersWithMeasures {
         Pulse = pulse;
     }
 
-    @ColumnInfo(name = "pulse")
-    private int Pulse;
+    public void setAge(String age) {
+        this.age = age;
+    }
+
+    public String getAge() {
+        return age;
+    }
 }

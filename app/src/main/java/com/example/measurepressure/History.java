@@ -14,7 +14,6 @@ public class History extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_history);
-        tvShow = (TextView) findViewById(R.id.tvShow);
 
         List<UserDB> users = MainActivity.myAppDB.userDAO().getUsers();
 

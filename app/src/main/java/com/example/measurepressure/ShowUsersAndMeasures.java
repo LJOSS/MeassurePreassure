@@ -1,55 +1,76 @@
 package com.example.measurepressure;
 
+import android.net.Uri;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Spinner;
 import android.widget.TextView;
 
+import java.util.ArrayList;
 import java.util.List;
 
-public class ShowUsersAndMeasures extends AppCompatActivity implements View.OnClickListener {
+import de.hdodenhof.circleimageview.CircleImageView;
 
-    private TextView tvShow;
-    private Button btnShowAll;
-    private EditText etID;
+public class ShowUsersAndMeasures extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
+
+    private Spinner spnUser;
+    private TextView tvAge_show,tvNameShow,tvWeight_show;
+    private CircleImageView circleImageViewShow;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_show_users_and_measures);
 
-        tvShow = (TextView) findViewById(R.id.tvShowUserAndMeasure);
+        spnUser = (Spinner) findViewById(R.id.spnUsers);
 
-        etID = (EditText) findViewById(R.id.etIDShow);
+        tvAge_show = (TextView) findViewById(R.id.tvAge_show);
+        tvNameShow = (TextView) findViewById(R.id.tvName_show);
+        tvWeight_show = (TextView) findViewById(R.id.tvWeight_show);
+        circleImageViewShow = (CircleImageView) findViewById(R.id.civShow);
 
-        btnShowAll = (Button) findViewById(R.id.btnShowAll);
-        btnShowAll.setOnClickListener(this);
+        List<UserDB> userDBList = MainActivity.myAppDB.userDAO().getUsers();
+        List<String> Users = new ArrayList<>();
+        for (UserDB usr : userDBList) {
+            Users.add(usr.getName());
+        }
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
+                android.R.layout.simple_spinner_item,
+                Users);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_item);
+        spnUser.setAdapter(adapter);
 
+        spnUser.setOnItemSelectedListener(this);
     }
 
     @Override
-    public void onClick(View view) {
-        switch (view.getId()) {
-            case R.id.btnShowAll:
-                int id = Integer.parseInt(etID.getText().toString());
+    public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+        List<UsersWithMeasures> usersWithMeasure = MainActivity.myAppDB.meassureDAO().getAllMeasuresWithUsers(++i);
 
-                List<UsersWithMeasures> usersWithMeasure = MainActivity.myAppDB.meassureDAO().getAllMeasuresWithUsers(id);
+        tvNameShow.setText(usersWithMeasure.get(i).getName());
+        tvAge_show.setText(usersWithMeasure.get(i).getAge());
+        tvWeight_show.setText(usersWithMeasure.get(i).getWeight()+" ");
+        circleImageViewShow.setImageURI(Uri.parse(usersWithMeasure.get(i).getAvatarURI()));
 
-                String info = "";
+        initRecycleViewAdapter(usersWithMeasure);
+    }
 
-                for (UsersWithMeasures usersWithMeasure_ : usersWithMeasure) {
-                    String name = usersWithMeasure_.getName();
-                    int weight = usersWithMeasure_.getWeight();
-                    int upper = usersWithMeasure_.getUpper();
-                    int lower = usersWithMeasure_.getLower();
-                    int pulse = usersWithMeasure_.getPulse();
+    private void initRecycleViewAdapter(List<UsersWithMeasures> usersWithMeasure) {
+        RecyclerView rvShowUsersAndMeasures = (RecyclerView) findViewById(R.id.rvShowUsersAndMeasures);
+        RVUsersAndMeasures adapter = new RVUsersAndMeasures(usersWithMeasure, this);
+        rvShowUsersAndMeasures.setAdapter(adapter);
+        rvShowUsersAndMeasures.setLayoutManager(new LinearLayoutManager(this));
+    }
 
-                    info = info + "\n\n" + "\nName: " + name + "\nWeight: " + weight + "\nUpper: " + upper + "\nLower: " + lower + "\nPulse: " + pulse;
-                }
-                tvShow.setText(info);
-                break;
-        }
+    @Override
+    public void onNothingSelected(AdapterView<?> adapterView) {
+
     }
 }

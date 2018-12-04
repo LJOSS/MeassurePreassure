@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Add">
+
+    <TableLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="8dp"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <TableRow>
+
+            <TextView
+                android:id="@+id/tvUpper"
+                android:gravity="left"
+                android:padding="10dp"
+                android:text="@string/Upper" />
+
+            <EditText
+                android:id="@+id/etUpper"
+                android:hint="@string/EnterUpper"
+                android:inputType="numberSigned"
+                android:padding="10dp" />
+        </TableRow>
+
+        <TableRow>
+
+            <TextView
+                android:id="@+id/tvLower"
+                android:gravity="left"
+                android:padding="10dp"
+                android:text="@string/Lower" />
+
+            <EditText
+                android:id="@+id/etLower"
+                android:hint="@string/EnterLower"
+                android:inputType="numberSigned" />
+
+        </TableRow>
+
+        <TableRow>
+
+            <TextView
+                android:id="@+id/tvPulse"
+                android:gravity="left"
+                android:padding="10dp"
+                android:text="@string/Pulse" />
+
+            <EditText
+                android:id="@+id/etPulse"
+                android:hint="@string/EnterPulse"
+                android:inputType="numberSigned" />
+
+        </TableRow>
+
+        <TableRow>
+
+            <TextView
+                android:id="@+id/tvID"
+                android:gravity="left"
+                android:padding="10dp"
+                android:text="@string/Id" />
+
+            <EditText
+                android:id="@+id/etID"
+                android:hint="@string/EnterID"
+                android:inputType="numberSigned" />
+
+        </TableRow>
+
+        <Button
+            android:id="@+id/btnAddMeasure"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="65dp"
+            android:padding="20dp"
+            android:text="@string/Add"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent" />
+    </TableLayout>
+</android.support.constraint.ConstraintLayout>

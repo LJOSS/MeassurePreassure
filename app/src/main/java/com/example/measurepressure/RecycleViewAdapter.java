@@ -39,14 +39,6 @@ public class RecycleViewAdapter extends RecyclerView.Adapter<RecycleViewAdapter.
         viewHolder.Weight.setText(musers.get(i).getWeight() + "");
         viewHolder.circleImageView.setImageURI(Uri.parse(musers.get(i).getAvatarURI()));
 
-        viewHolder.parentLayout.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                UserDB userDB = new UserDB();
-                userDB.setId(i);
-                MainActivity.myAppDB.userDAO().DeleteUser(userDB);
-            }
-        });
     }
 
     @Override
@@ -60,12 +52,10 @@ public class RecycleViewAdapter extends RecyclerView.Adapter<RecycleViewAdapter.
         TextView firstName;
         TextView Age;
         TextView Weight;
-        RelativeLayout parentLayout;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             circleImageView = itemView.findViewById(R.id.image);
-            parentLayout = itemView.findViewById(R.id.parent_layout);
             firstName = itemView.findViewById(R.id.first_name);
             Age = itemView.findViewById(R.id.Age);
             Weight = itemView.findViewById(R.id.Weight);

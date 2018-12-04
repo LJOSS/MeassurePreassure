@@ -48,6 +48,12 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/btnShowUsersAndMeasures" />
+
+        <Button
+            android:id="@+id/AddMeasure"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="AddMeasure" />
     </LinearLayout>
 
 </android.support.constraint.ConstraintLayout>

@@ -10,7 +10,7 @@ import android.widget.Button;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
-    Button btnUser, btnHistory, btnSettings, btnMeassure, btnShowUsersAndMeasures;
+    Button btnUser, btnHistory, btnSettings, btnMeassure, btnShowUsersAndMeasures,AddMeasure;
 
     public static MyAppDB myAppDB;
 
@@ -30,7 +30,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         btnUser.setOnClickListener(this);
         btnShowUsersAndMeasures = (Button) findViewById(R.id.btnShowUsersAndMeasures);
         btnShowUsersAndMeasures.setOnClickListener(this);
-
+        AddMeasure = (Button) findViewById(R.id.AddMeasure);
+        AddMeasure.setOnClickListener(this);
         myAppDB = myAppDB.getDatabase(getApplicationContext());
     }
 
@@ -56,6 +57,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             case R.id.btnShowUsersAndMeasures:
                 Intent iShowUsersAndMeasures = new Intent(this, ShowUsersAndMeasures.class);
                 startActivity(iShowUsersAndMeasures);
+                break;
+            case R.id.AddMeasure:
+                Intent iAddMeasure = new Intent(this, AddMeasure.class);
+                startActivity(iAddMeasure);
                 break;
         }
     }

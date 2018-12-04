@@ -36,7 +36,8 @@
         <activity
             android:name=".Settings"
             android:label="@string/Settings" />
-        <activity android:name=".ShowUsersAndMeasures"></activity>
+        <activity android:name=".ShowUsersAndMeasures" />
+        <activity android:name=".AddMeasure"></activity>
     </application>
 
 </manifest>

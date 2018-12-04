@@ -23,4 +23,10 @@
     <string name="Id">Id</string>
     <string name="EnterID">Enter User Id</string>
     <string name="show">Show</string>
+    <string name="Upper">Верхнее</string>
+    <string name="Lower">Нижнее</string>
+    <string name="Pulse">Пульс</string>
+    <string name="EnterUpper">Enter Upper</string>
+    <string name="EnterLower">Enter Lower</string>
+    <string name="EnterPulse">Enter Pulse</string>
 </resources>
