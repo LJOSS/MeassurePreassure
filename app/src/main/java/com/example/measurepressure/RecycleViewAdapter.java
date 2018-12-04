@@ -38,7 +38,6 @@ public class RecycleViewAdapter extends RecyclerView.Adapter<RecycleViewAdapter.
         viewHolder.Age.setText(musers.get(i).getAge());
         viewHolder.Weight.setText(musers.get(i).getWeight() + "");
         viewHolder.circleImageView.setImageURI(Uri.parse(musers.get(i).getAvatarURI()));
-
     }
 
     @Override

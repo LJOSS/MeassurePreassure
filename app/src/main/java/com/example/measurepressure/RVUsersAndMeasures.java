@@ -31,9 +31,9 @@ public class RVUsersAndMeasures extends RecyclerView.Adapter<RVUsersAndMeasures.
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder viewHolder, int i) {
-        viewHolder.Lower.setText(musers.get(i).getLower());
-        viewHolder.Upper.setText(musers.get(i).getUpper());
-        viewHolder.Pulse.setText(musers.get(i).getPulse());
+        viewHolder.Lower.setText(musers.get(i).getLower()+"");
+        viewHolder.Upper.setText(musers.get(i).getUpper()+"");
+        viewHolder.Pulse.setText(musers.get(i).getPulse()+"");
     }
 
     @Override
