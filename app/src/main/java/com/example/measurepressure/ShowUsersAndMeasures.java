@@ -21,7 +21,7 @@ import de.hdodenhof.circleimageview.CircleImageView;
 public class ShowUsersAndMeasures extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
 
     private Spinner spnUser;
-    private TextView tvAge_show,tvNameShow,tvWeight_show;
+    private TextView tvAge_show, tvNameShow, tvWeight_show;
     private CircleImageView circleImageViewShow;
 
     @Override
@@ -42,9 +42,9 @@ public class ShowUsersAndMeasures extends AppCompatActivity implements AdapterVi
             Users.add(usr.getName());
         }
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
-                android.R.layout.simple_spinner_item,
+                R.layout.spinner_layout,
+                R.id.tvNameSpinner,
                 Users);
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_item);
         spnUser.setAdapter(adapter);
 
         spnUser.setOnItemSelectedListener(this);
@@ -56,7 +56,7 @@ public class ShowUsersAndMeasures extends AppCompatActivity implements AdapterVi
 
         tvNameShow.setText(usersWithMeasure.get(i).getName());
         tvAge_show.setText(usersWithMeasure.get(i).getAge());
-        tvWeight_show.setText(usersWithMeasure.get(i).getWeight()+" ");
+        tvWeight_show.setText(usersWithMeasure.get(i).getWeight() + " ");
         circleImageViewShow.setImageURI(Uri.parse(usersWithMeasure.get(i).getAvatarURI()));
 
         initRecycleViewAdapter(usersWithMeasure);
