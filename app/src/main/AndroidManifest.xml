@@ -25,6 +25,9 @@
             </intent-filter>
         </activity>
         <activity
+            android:name="com.theartofdev.edmodo.cropper.CropImageActivity"
+            android:screenOrientation="portrait" />
+        <activity
             android:name=".User"
             android:label="@string/User" />
         <activity

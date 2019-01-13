@@ -1,0 +1,73 @@
+{
+  "project_info": {
+    "project_number": "299730992046",
+    "firebase_url": "https://measurepreasure.firebaseio.com",
+    "project_id": "measurepreasure",
+    "storage_bucket": "measurepreasure.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:299730992046:android:bf736f37e327c7eb",
+        "android_client_info": {
+          "package_name": "com.example.measurepressure"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "299730992046-iaq9oe1kiq3hbhl5ful21lmmrti8vbeh.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB7UGMg8ur2PmglfxMMuaEXfRpcSpU2y0Y"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:299730992046:android:79d3043df15327e4",
+        "android_client_info": {
+          "package_name": "com.example.tryroomdb"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "299730992046-iaq9oe1kiq3hbhl5ful21lmmrti8vbeh.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB7UGMg8ur2PmglfxMMuaEXfRpcSpU2y0Y"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

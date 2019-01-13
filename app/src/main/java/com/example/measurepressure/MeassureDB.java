@@ -21,7 +21,7 @@ public class MeassureDB {
     @ColumnInfo(name = "pulse")
     private int Pulse;
 
-    @ForeignKey(entity = UserDB.class, parentColumns = "id", childColumns = "Userid", onDelete = CASCADE)
+    @ForeignKey(entity = UserDB.class, parentColumns = "id", childColumns = "Userid", onDelete = CASCADE,onUpdate = CASCADE)
     @ColumnInfo(name = "userid")
     private int Userid;
 

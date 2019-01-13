@@ -3,41 +3,34 @@ package com.example.measurepressure;
 import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.net.Uri;
-import android.os.Environment;
 import android.provider.MediaStore;
+import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.googlecode.tesseract.android.TessBaseAPI;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.ml.vision.FirebaseVision;
+import com.google.firebase.ml.vision.common.FirebaseVisionImage;
+import com.google.firebase.ml.vision.text.FirebaseVisionText;
+import com.google.firebase.ml.vision.text.FirebaseVisionTextDetector;
+import com.theartofdev.edmodo.cropper.CropImage;
+import com.theartofdev.edmodo.cropper.CropImageView;
 
-import java.io.File;
-import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
 import java.util.List;
 
 public class Meassure extends AppCompatActivity implements View.OnClickListener {
 
-    private static final String TAG = MainActivity.class.getSimpleName();
     static final int PHOTO_REQUEST_CODE = 1;
-    private TessBaseAPI tessBaseApi;
-    Uri outputFileUri;
-    TextView tvRes;
-    private static final String lang = "eng";
-    String result = "empty";
-    private static final String DATA_PATH = Environment.getExternalStorageDirectory().toString() + "/TesseractSample/";
-    private static final String TESSDATA = "tessdata";
 
+    Uri imageUri;
+    TextView tvRes;
     Button btnCapture;
 
     @Override
@@ -55,140 +48,81 @@ public class Meassure extends AppCompatActivity implements View.OnClickListener 
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.btnCapture:
-                startCameraActivity();
-            break;
+                pickImage();
+                break;
         }
     }
 
-    private void startCameraActivity () {
-        try {
-            String IMGS_PATH = Environment.getExternalStorageDirectory().toString() + "/Measure pressure/OCR";
-            prepareDirectory(IMGS_PATH);
-
-            String img_path = IMGS_PATH + "/ocr.jpg";
-
-            outputFileUri = Uri.fromFile(new File(img_path));
-
-            final Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-            takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, outputFileUri);
-
-            if (takePictureIntent.resolveActivity(getPackageManager()) != null) {
-                startActivityForResult(takePictureIntent, PHOTO_REQUEST_CODE);
-            }
-        } catch (Exception e) {
-            Log.e(TAG, e.getMessage());
-        }
+    public void pickImage() {
+        CropImage.startPickImageActivity(this);
     }
 
+    //CROP REQUEST JAVA
+    private void croprequest(Uri imageUri) {
+        CropImage.activity(imageUri)
+                .setGuidelines(CropImageView.Guidelines.ON)
+                .setMultiTouchEnabled(true)
+                .start(this);
+    }
+
+    //FOR ACTIVITY RESULT
     @Override
-    public void onActivityResult ( int requestCode, int resultCode, Intent data){
-        //making photo
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+
+        //MAKING PHOTO
         if (requestCode == PHOTO_REQUEST_CODE && resultCode == Activity.RESULT_OK) {
-            doOCR();
-        } else {
-            Toast.makeText(this, "ERROR: Image was not obtained.", Toast.LENGTH_SHORT).show();
-        }
-    }
-
-    private void doOCR () {
-        prepareTesseract();
-        startOCR(outputFileUri);
-    }
-
-    private void prepareDirectory (String path){
-        File dir = new File(path);
-        if (!dir.exists()) {
-            if (!dir.mkdirs()) {
-                Log.e(TAG, "ERROR: Creation of directory " + path + " failed, check does Android Manifest have permission to write to external storage.");
-            }
-        } else {
-            Log.i(TAG, "Created directory " + path);
-        }
-    }
-
-
-    private void prepareTesseract () {
-        try {
-            prepareDirectory(DATA_PATH + TESSDATA);
-        } catch (Exception e) {
-            e.printStackTrace();
+            imageUri = CropImage.getPickImageResultUri(this, data);
+            croprequest(imageUri);
         }
 
-        copyTessDataFiles(TESSDATA);
-    }
+        //RESULT FROM SELECTED IMAGE
+        if (requestCode == CropImage.PICK_IMAGE_CHOOSER_REQUEST_CODE && resultCode == Activity.RESULT_OK) {
+            imageUri = CropImage.getPickImageResultUri(this, data);
+            croprequest(imageUri);
+        }
 
-    private void copyTessDataFiles (String path){
-        try {
-            String fileList[] = getAssets().list(path);
+        //RESULT FROM CROPING ACTIVITY
+        if (requestCode == CropImage.CROP_IMAGE_ACTIVITY_REQUEST_CODE) {
+            CropImage.ActivityResult result = CropImage.getActivityResult(data);
+            if (resultCode == RESULT_OK) {
+                try {
+                    Bitmap bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), result.getUri());
+                    recognizeText(bitmap);
 
-            for (String fileName : fileList) {
-
-                // open file within the assets folder
-                // if it is not already there copy it to the sdcard
-                String pathToDataFile = DATA_PATH + path + "/" + fileName;
-                if (!(new File(pathToDataFile)).exists()) {
-
-                    InputStream in = getAssets().open(path + "/" + fileName);
-
-                    OutputStream out = new FileOutputStream(pathToDataFile);
-
-                    // Transfer bytes from in to out
-                    byte[] buf = new byte[1024];
-                    int len;
-
-                    while ((len = in.read(buf)) > 0) {
-                        out.write(buf, 0, len);
-                    }
-                    in.close();
-                    out.close();
-
-                    Log.d(TAG, "Copied " + fileName + "to tessdata");
+                } catch (IOException e) {
+                    e.printStackTrace();
                 }
             }
-        } catch (IOException e) {
-            Log.e(TAG, "Unable to copy files to tessdata " + e.toString());
         }
     }
 
-    public void startOCR (Uri imgUri){
-        try {
-            BitmapFactory.Options options = new BitmapFactory.Options();
-            options.inSampleSize = 4; // 1 - means max size. 4 - means maxsize/4 size. Don't use value <4, because you need more memory in the heap to store your data.
-            Bitmap bitmap = BitmapFactory.decodeFile(imgUri.getPath(), options);
-
-            result = extractText(bitmap);
-            tvRes.setText(result);
-
-        } catch (Exception e) {
-            Log.e(TAG, e.getMessage());
-        }
-    }
-
-
-    private String extractText (Bitmap bitmap){
-        try {
-            tessBaseApi = new TessBaseAPI();
-        } catch (Exception e) {
-            Log.e(TAG, e.getMessage());
-            if (tessBaseApi == null) {
-                Log.e(TAG, "TessBaseAPI is null. TessFactory not returning tess object.");
+    private void recognizeText(Bitmap imgBitmap) {
+        FirebaseVisionImage image = FirebaseVisionImage.fromBitmap(imgBitmap);
+        FirebaseVisionTextDetector detector = FirebaseVision.getInstance().getVisionTextDetector();
+        detector.detectInImage(image).addOnSuccessListener(new OnSuccessListener<FirebaseVisionText>() {
+            @Override
+            public void onSuccess(FirebaseVisionText firebaseVisionText) {
+                processTxt(firebaseVisionText);
             }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+
+            }
+        });
+    }
+
+    private void processTxt(FirebaseVisionText text) {
+        List<FirebaseVisionText.Block> blocks = text.getBlocks();
+        if (blocks.size() == 0) {
+            Toast.makeText(this, "No Text :(", Toast.LENGTH_LONG).show();
+            return;
         }
-
-        tessBaseApi.init(DATA_PATH, lang);
-
-
-        tessBaseApi.setVariable(TessBaseAPI.VAR_CHAR_WHITELIST, "1234567890");
-
-        Log.d(TAG, "Training file loaded");
-        tessBaseApi.setImage(bitmap);
-        String extractedText = "empty result";
-        try {
-            extractedText = tessBaseApi.getUTF8Text();
-        } catch (Exception e) {
-            Log.e(TAG, "Error in recognizing text.");
+        for (FirebaseVisionText.Block block : text.getBlocks()) {
+            String txt= " ";
+            txt = txt + block.getText();
+            tvRes.setTextSize(24);
+            tvRes.setText(txt);
         }
-        tessBaseApi.end();
-        return extractedText;
     }
 }
